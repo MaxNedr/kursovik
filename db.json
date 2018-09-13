@@ -17,8 +17,8 @@
       "price-class": "price_place",
       "add_to_cart-class": "add_to_cart",
       "name": "Mango People T-shirt",
-      "price": 52,
-      "img-url": "img/Layer_2.png"
+      "price": "52.00",
+      "imgurl": "img/Layer_2.png"
     },
     {
       "id": 2,
@@ -27,8 +27,8 @@
       "price-class": "price_place",
       "add_to_cart-class": "add_to_cart",
       "name": "Mango People T-shirt",
-      "price": 52,
-      "img-url": "img/Layer_3.png"
+      "price": "52.00",
+      "imgurl": "img/Layer_3.png"
     },
     {
       "id": 3,
@@ -37,8 +37,8 @@
       "price-class": "price_place",
       "add_to_cart-class": "add_to_cart",
       "name": "Mango People T-shirt",
-      "price": 52,
-      "img-url": "img/Layer_4.png"
+      "price": "52.00",
+      "imgurl": "img/Layer_4.png"
     },
     {
       "id": 4,
@@ -47,8 +47,8 @@
       "price-class": "price_place",
       "add_to_cart-class": "add_to_cart",
       "name": "Mango People T-shirt",
-      "price": 52,
-      "img-url": "img/Layer_5.png"
+      "price": "52.00",
+      "imgurl": "img/Layer_5.png"
     },
     {
       "id": 5,
@@ -57,8 +57,8 @@
       "price-class": "price_place",
       "add_to_cart-class": "add_to_cart",
       "name": "Mango People T-shirt",
-      "price": 52,
-      "img-url": "img/Layer_6.png"
+      "price": "52.00",
+      "imgurl": "img/Layer_6.png"
     },
     {
       "id": 6,
@@ -67,8 +67,8 @@
       "price-class": "price_place",
       "add_to_cart-class": "add_to_cart",
       "name": "Mango People T-shirt",
-      "price": 52,
-      "img-url": "img/Layer_7.png"
+      "price": "52.00",
+      "imgurl": "img/Layer_7.png"
     },
     {
       "id": 7,
@@ -77,8 +77,8 @@
       "price-class": "price_place",
       "add_to_cart-class": "add_to_cart",
       "name": "Mango People T-shirt",
-      "price": 52,
-      "img-url": "img/Layer_8.png"
+      "price": "52.00",
+      "imgurl": "img/Layer_8.png"
     },
     {
       "id": 8,
@@ -87,8 +87,8 @@
       "price-class": "price_place",
       "add_to_cart-class": "add_to_cart",
       "name": "Mango People T-shirt",
-      "price": 52,
-      "img-url": "img/Layer_9.png"
+      "price": "52.00",
+      "imgurl": "img/Layer_9.png"
     }
   ],
   "goods": [
@@ -113,5 +113,18 @@
       "price": 567
     }
   ],
-  "cart": []
+  "cart": [
+    {
+      "id": "6",
+      "quantity": 6,
+      "name": "Mango People T-shirt",
+      "price": "52.00"
+    },
+    {
+      "id": "2",
+      "quantity": 1,
+      "name": "Mango People T-shirt",
+      "price": "52.00"
+    }
+  ]
 }

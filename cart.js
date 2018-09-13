@@ -43,16 +43,32 @@ function buildCart() {
 function buildGoodsList() {
     // Запрашиваем список товаров на складе
     $.ajax({
-        url: 'http://localhost:3000/goods',
+        url: 'http://localhost:3000/items',
         dataType: 'json',
         success: function (cart) {
             var $ul = $('<ul />');
-            var $div = $('<div />')
-            var $divPosition = $('<div />').attr('class', 'position_add_to_cart');
-            var $a = $('<a />').attr("href", "single_page.html");
+            var $divItemPreview = $('<div />').attr('class', 'items_preview');
+
             // Перебираем список товаров
             cart.forEach(function (item) {
-                $div.attr('class', 'item');
+                var $div = $('<div />').attr('class', 'item');
+                var $divPosition = $('<div />').attr('class', 'position_add_to_cart');
+                var $a = $('<a />').attr("href", "single_page.html");
+                var $aShop = $('<a />').attr("href", "#");
+                var $divImageItem = $('<div />').attr('class', 'img_items');
+                var $divPricePlace = $('<div />').attr('class', 'price_place');
+                var $nameItem = $('<H3 />');
+                var $price = $('<H4 />');
+                var $img = $('<img >');
+                var $imgShop = $('<img >').attr('src', 'img/Forma_cart_white.svg');
+                var $addToCart =$('<div >').attr('class', 'add_to_cart');
+                $addToCart.attr("data-id", item.id);
+                $addToCart.attr("data-name", item.name);
+                $addToCart.attr("data-price", item.price);
+                $div.attr('id',item.id) ;
+                $img.attr('src', item.imgurl);
+                $nameItem.text(item.name);
+                $price.text('$ ' + item.price);
                 // Создаем товар в списке
                 var $li = $('<li />', {
                     text: item.name + ' ' + item.price + ' rub.',
@@ -67,14 +83,23 @@ function buildGoodsList() {
                 });
 
                 // Добавляем все в dom
+                $divItemPreview.append($div);
                 $div.append($a);
+                $a.append($divImageItem);
+                $a.append($divPricePlace);
+                $divImageItem.append($img);
+                $divPricePlace.append($nameItem);
+                $divPricePlace.append($price);
                 $div.append($divPosition);
-
+                $divPosition.append($addToCart);
+                $addToCart.append($aShop);
+                $aShop.text('Add to Cart');
+                $aShop.prepend($imgShop);
                 $li.append($button);
                 $ul.append($li);
             });
             // Добавляем все в dom
-            $('#goods').append($div);
+            $('#goods').append($divItemPreview);
             $('#goods').append($ul);
         }
     })
@@ -103,7 +128,7 @@ function buildGoodsList() {
         });
 
         // Слушаем нажатия на кнопку Купить
-        $('#goods').on('click', '.buy', function () {
+        $('#goods').on('click', '.add_to_cart', function () {
             // Определяем id товара, который пользователь хочет удалить
             var id = $(this).attr('data-id');
             // Пробуем найти такой товар в карзине
