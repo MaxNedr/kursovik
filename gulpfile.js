@@ -41,9 +41,9 @@ gulp.task('watch', ['browserSync'], function () {
 
 gulp.task('build', function () {
     return gulp.src('src/*.html')
-        .pipe(useref())
         .pipe(gulpif('src/*.js', uglify()))
         .pipe(gulpif('src/*.css', minifyCss()))
+        .pipe(useref())
         .pipe(gulp.dest('src/dist'));
 });
 
