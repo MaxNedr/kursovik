@@ -1,0 +1,130 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Vasya"
+    },
+    {
+      "id": 2,
+      "name": "Petya"
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "class": "item",
+      "img-class": "img_items",
+      "price-class": "price_place",
+      "add_to_cart-class": "add_to_cart",
+      "name": "Mango People T-shirt",
+      "price": "52.00",
+      "imgurl": "img/Layer_2.png"
+    },
+    {
+      "id": 2,
+      "class": "item",
+      "img-class": "img_items",
+      "price-class": "price_place",
+      "add_to_cart-class": "add_to_cart",
+      "name": "Mango People T-shirt",
+      "price": "52.00",
+      "imgurl": "img/Layer_3.png"
+    },
+    {
+      "id": 3,
+      "class": "item",
+      "img-class": "img_items",
+      "price-class": "price_place",
+      "add_to_cart-class": "add_to_cart",
+      "name": "Mango People T-shirt",
+      "price": "52.00",
+      "imgurl": "img/Layer_4.png"
+    },
+    {
+      "id": 4,
+      "class": "item",
+      "img-class": "img_items",
+      "price-class": "price_place",
+      "add_to_cart-class": "add_to_cart",
+      "name": "Mango People T-shirt",
+      "price": "52.00",
+      "imgurl": "img/Layer_5.png"
+    },
+    {
+      "id": 5,
+      "class": "item",
+      "img-class": "img_items",
+      "price-class": "price_place",
+      "add_to_cart-class": "add_to_cart",
+      "name": "Mango People T-shirt",
+      "price": "52.00",
+      "imgurl": "img/Layer_6.png"
+    },
+    {
+      "id": 6,
+      "class": "item",
+      "img-class": "img_items",
+      "price-class": "price_place",
+      "add_to_cart-class": "add_to_cart",
+      "name": "Mango People T-shirt",
+      "price": "52.00",
+      "imgurl": "img/Layer_7.png"
+    },
+    {
+      "id": 7,
+      "class": "item",
+      "img-class": "img_items",
+      "price-class": "price_place",
+      "add_to_cart-class": "add_to_cart",
+      "name": "Mango People T-shirt",
+      "price": "52.00",
+      "imgurl": "img/Layer_8.png"
+    },
+    {
+      "id": 8,
+      "class": "item",
+      "img-class": "img_items",
+      "price-class": "price_place",
+      "add_to_cart-class": "add_to_cart",
+      "name": "Mango People T-shirt",
+      "price": "52.00",
+      "imgurl": "img/Layer_9.png"
+    }
+  ],
+  "goods": [
+    {
+      "id": 1,
+      "name": "Трусы",
+      "price": 255
+    },
+    {
+      "id": 2,
+      "name": "Майки",
+      "price": 100
+    },
+    {
+      "id": 3,
+      "name": "Носки",
+      "price": 150
+    },
+    {
+      "id": 4,
+      "name": "Шапки",
+      "price": 567
+    }
+  ],
+  "cart": [
+    {
+      "id": "6",
+      "quantity": 6,
+      "name": "Mango People T-shirt",
+      "price": "52.00"
+    },
+    {
+      "id": "2",
+      "quantity": 1,
+      "name": "Mango People T-shirt",
+      "price": "52.00"
+    }
+  ]
+}

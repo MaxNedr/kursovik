@@ -4,23 +4,18 @@
   "description": "",
   "main": "ajax.js",
   "dependencies": {
-    "fontawesome": "^4.7.2",
     "jquery": "^3.3.1"
   },
   "devDependencies": {
     "browser-sync": "^2.24.7",
     "gulp": "^3.9.1",
-    "gulp-clean-css": "^3.10.0",
     "gulp-cssmin": "^0.2.0",
     "gulp-htmlmin": "^5.0.1",
-    "gulp-if": "^2.0.2",
     "gulp-js-minify": "0.0.3",
     "gulp-json-srv": "^1.2.0",
     "gulp-minify": "^3.1.0",
     "gulp-minify-html": "^1.0.6",
-    "gulp-sass": "^4.0.1",
-    "gulp-uglify": "^3.0.1",
-    "gulp-useref": "^3.1.5"
+    "gulp-sass": "^4.0.1"
   },
   "scripts": {
     "gulp": "gulp",
