@@ -1,46 +1,75 @@
 function buildCart() {
     // Очищаем корзину
     $('#cart').empty();
-    var $triangle =$('<div />').attr('class', 'triangle triangle__in-cart' );
+    var $triangle = $('<div />').attr('class', 'triangle triangle__in-cart');
     $('#cart').append($triangle);
     // Отправляем запрос на получение списка товаров в корзине
     $.ajax({
         url: 'http://localhost:3000/cart',
         dataType: 'json',
         success: function (cart) {
-            var $item_in_cart = $('<div />').attr('class', 'item_in_cart' );
-            // Создаем ul - элемент
-            var $ul = $('<ul />');
+            var $total = $('<div />').attr('class', 'total_price');
+            $total.html('<span>TOTAL</span> <span id="total"></span>');
+            var $buttons_cart =$('<div />').attr('class', 'buttons_cart');
+            var $a_checkout=$('<a />').attr({href: 'checkout.html', class: "checkout"});
+            $a_checkout.text('Checkout');
+            var $a_shopping=$('<a />').attr({href: 'shopping_cart.html', class: "go-to-cart"});
+            $a_shopping.text('Go to cart');
+            $buttons_cart.append($a_checkout);
+            $buttons_cart.append($a_shopping);
+
+
             // Переменная для хранения стоимости товаров в корзине
             var amount = 0;
 
             // Перебираем товары
             cart.forEach(function (item) {
-                // Создаем товар в списке
-                var $li = $('<li />', {
-                    text: item.name + ' - ' + item.quantity + ' шт',
-                });
-
+                var $item_in_cart = $('<div />').attr('class', 'item_in_cart');
+                var $img_item = $('<img />').attr('src', item.imgurl);
+                var $product_in_cart = $('<div />').attr('class', 'product_in_cart_text ml_text');
+                var $buttonAction = $('<div />').attr('class', 'action action__incart');
+                var $a = $('<a />').attr('href', 'single_page.html');
+                var $aInAction = $('<a />', {
+                    class: 'delete',
+                    'data-id': item.id,
+                    'data-quantity': item.quantity,
+                }).attr('href', '#');
+                var $star = $('<div />').attr('class', 'star');
+                var $span = $('<span />', {text: item.quantity + ' x ' + item.price + ' $'});
+                var $h3 = $('<h3 />', {text: item.name});
+                var $i = $('<i />').attr('class', 'fas fa-times-circle');
+                $star.html('<p>*****</p>');
                 // Создаем кнопку для удаления товара из корзины
-                var $button = $('<button />', {
+               /* var $button = $('<button />', {
                     text: 'x',
                     class: 'delete',
                     'data-id': item.id,
                     'data-quantity': item.quantity,
-                });
+                });*/
 
                 // Суммируем
                 amount += +item.quantity * +item.price;
 
                 // Добавляем все в dom
-                $li.append($button);
-                $ul.append($li);
+                $aInAction.append($i);
+                $buttonAction.append($aInAction);
+                $a.append($h3);
+                $product_in_cart.append($a);
+                $product_in_cart.append($star);
+                $product_in_cart.append($span);
+                $item_in_cart.append($img_item);
+                $item_in_cart.append($product_in_cart);
+                $item_in_cart.append($buttonAction);
+
+                $('#cart').append($item_in_cart);
             });
             // Добавляем все в dom
 
-            $('#cart').append($item_in_cart);
-            $('#cart').append($ul);
-            $('#cart').append('Total: ' + amount + ' $')
+
+            $('#cart').append($total);
+            $('#cart').append($buttons_cart);
+            $('#total').append(amount + ' $');
+
 
         }
     })
@@ -52,7 +81,6 @@ function buildGoodsList() {
         url: 'http://localhost:3000/items',
         dataType: 'json',
         success: function (cart) {
-            //var $ul = $('<ul />');
             var $divItemPreview = $('<div />').attr('class', 'items_preview');
 
             // Перебираем список товаров
@@ -67,26 +95,15 @@ function buildGoodsList() {
                 var $price = $('<H4 />');
                 var $img = $('<img >');
                 var $imgShop = $('<img >').attr('src', 'img/Forma_cart_white.svg');
-                var $addToCart =$('<div >').attr('class', 'add_to_cart');
+                var $addToCart = $('<div >').attr('class', 'add_to_cart');
                 $addToCart.attr("data-id", item.id);
                 $addToCart.attr("data-name", item.name);
                 $addToCart.attr("data-price", item.price);
-                $div.attr('id',item.id) ;
+                $addToCart.attr("data-imgurl", item.imgurl);
+                $div.attr('id', item.id);
                 $img.attr('src', item.imgurl);
                 $nameItem.text(item.name);
                 $price.text('$ ' + item.price);
-                // Создаем товар в списке
-               /* var $li = $('<li />', {
-                    text: item.name + ' ' + item.price + ' rub.',
-                });
-                // Создаем кнопку для покупки
-                var $button = $('<button />', {
-                    text: 'Buy',
-                    class: 'buy',
-                    'data-id': item.id,
-                    'data-name': item.name,
-                    'data-price': item.price,
-                });*/
 
                 // Добавляем все в dom
                 $divItemPreview.append($div);
@@ -101,12 +118,9 @@ function buildGoodsList() {
                 $addToCart.append($aShop);
                 $aShop.text('Add to Cart');
                 $aShop.prepend($imgShop);
-                //$li.append($button);
-                //$ul.append($li);
             });
             // Добавляем все в dom
             $('#goods').append($divItemPreview);
-            //$('#goods').append($ul);
         }
     })
 }
@@ -170,6 +184,7 @@ function buildGoodsList() {
                         quantity: 1,
                         name: $(this).attr('data-name'),
                         price: $(this).attr('data-price'),
+                        imgurl: $(this).attr('data-imgurl'),
                     }),
                     success: function () {
                         // Перерисовываем корзину
