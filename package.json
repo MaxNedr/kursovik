@@ -1,11 +1,11 @@
 {
   "name": "kursovik",
   "version": "1.0.0",
-  "description": "",
   "main": "ajax.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.3.1",
     "fontawesome": "^4.7.2",
+    "gulp-rename": "^1.4.0",
     "jquery": "^3.3.1"
   },
   "devDependencies": {
@@ -37,5 +37,6 @@
     "url": "https://github.com/MaxNedr/kursovik/issues"
   },
   "homepage": "https://github.com/MaxNedr/kursovik#readme",
-  "keywords": []
+  "keywords": [],
+  "description": ""
 }

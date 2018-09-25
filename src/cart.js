@@ -1,11 +1,14 @@
 function buildCart() {
     // Очищаем корзину
     $('#cart').empty();
+    var $triangle =$('<div />').attr('class', 'triangle triangle__in-cart' );
+    $('#cart').append($triangle);
     // Отправляем запрос на получение списка товаров в корзине
     $.ajax({
         url: 'http://localhost:3000/cart',
         dataType: 'json',
         success: function (cart) {
+            var $item_in_cart = $('<div />').attr('class', 'item_in_cart' );
             // Создаем ul - элемент
             var $ul = $('<ul />');
             // Переменная для хранения стоимости товаров в корзине
@@ -15,7 +18,7 @@ function buildCart() {
             cart.forEach(function (item) {
                 // Создаем товар в списке
                 var $li = $('<li />', {
-                    text: item.name + '(' + item.quantity + ')',
+                    text: item.name + ' - ' + item.quantity + ' шт',
                 });
 
                 // Создаем кнопку для удаления товара из корзины
@@ -34,8 +37,11 @@ function buildCart() {
                 $ul.append($li);
             });
             // Добавляем все в dom
+
+            $('#cart').append($item_in_cart);
             $('#cart').append($ul);
-            $('#cart').append('Total: ' + amount + ' rub.')
+            $('#cart').append('Total: ' + amount + ' $')
+
         }
     })
 }
@@ -46,7 +52,7 @@ function buildGoodsList() {
         url: 'http://localhost:3000/items',
         dataType: 'json',
         success: function (cart) {
-            var $ul = $('<ul />');
+            //var $ul = $('<ul />');
             var $divItemPreview = $('<div />').attr('class', 'items_preview');
 
             // Перебираем список товаров
@@ -70,7 +76,7 @@ function buildGoodsList() {
                 $nameItem.text(item.name);
                 $price.text('$ ' + item.price);
                 // Создаем товар в списке
-                var $li = $('<li />', {
+               /* var $li = $('<li />', {
                     text: item.name + ' ' + item.price + ' rub.',
                 });
                 // Создаем кнопку для покупки
@@ -80,7 +86,7 @@ function buildGoodsList() {
                     'data-id': item.id,
                     'data-name': item.name,
                     'data-price': item.price,
-                });
+                });*/
 
                 // Добавляем все в dom
                 $divItemPreview.append($div);
@@ -95,12 +101,12 @@ function buildGoodsList() {
                 $addToCart.append($aShop);
                 $aShop.text('Add to Cart');
                 $aShop.prepend($imgShop);
-                $li.append($button);
-                $ul.append($li);
+                //$li.append($button);
+                //$ul.append($li);
             });
             // Добавляем все в dom
             $('#goods').append($divItemPreview);
-            $('#goods').append($ul);
+            //$('#goods').append($ul);
         }
     })
 }
@@ -113,7 +119,8 @@ function buildGoodsList() {
         buildGoodsList();
 
         // Слушаем нажатия на удаление товара из корзины
-        $('#cart').on('click', '.delete', function () {
+        $('#cart').on('click', '.delete', function (event) {
+            event.preventDefault();
             // Получаем id товара, который пользователь хочет удалить
             var id = $(this).attr('data-id');
             // Отправляем запрос на удаление
@@ -128,7 +135,8 @@ function buildGoodsList() {
         });
 
         // Слушаем нажатия на кнопку Купить
-        $('#goods').on('click', '.add_to_cart', function () {
+        $('#goods').on('click', '.add_to_cart', function (event) {
+            event.preventDefault();
             // Определяем id товара, который пользователь хочет удалить
             var id = $(this).attr('data-id');
             // Пробуем найти такой товар в карзине
