@@ -1691,7 +1691,7 @@ a:nth-child(4) {
   display: none;
   position: absolute;
   flex-flow: column nowrap;
-  width: 245px;
+  min-width: 290px;
   border: 1px solid #ececec;
   border-radius: 5px;
   top: 80px;
