@@ -4,9 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Домашка</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
-          integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!--build:css css/styles.min.css-->
+    <link rel="stylesheet" href="fontawesome-free-5.3.1-web/css/all.css">
     <link rel="stylesheet" href="sass/style.css">
+    <!--endbuild-->
+    <!--build:js script/myscript.min.js -->
+    <script src="jquery-3.3.1.js"></script>
+    <script src="cart.js"></script>
+    <!-- endbuild -->
 </head>
 
 <body>
@@ -57,51 +62,12 @@
             </form>
         </div>
         <div class="header-left">
-            <div class="anim_cart"><a href="shopping_cart.html"><img src="img/cart.svg" alt="cart"></a><div class="cart">
-                <div class="triangle triangle__in-cart"></div>
-                <div class="item_in_cart">
-                    <img src="img/Layer_43.png" alt="item">
-                    <div class="product_in_cart_text ml_text">
-                        <a href="single_page.html"><h3>Rebox Zane</h3></a>
-                        <div class="star">
-                            <p>*****</p>
-                        </div>
-                        <span>1  x   $250</span>
-                    </div>
-                    <div class="action action__incart"><a href="#"><i class="fas fa-times-circle"></i></a></div>
-                </div>
-                <div class="item_in_cart">
-                    <img src="img/Layer_43.png" alt="item">
-                    <div class="product_in_cart_text ml_text">
-                        <a href="single_page.html"><h3>Rebox Zane</h3></a>
-                        <div class="star">
-                            <p>*****</p>
-                        </div>
-                        <span>1  x   $250</span>
-                    </div>
-                    <div class="action action__incart"><a href="#"><i class="fas fa-times-circle"></i></a></div>
-                </div>
-                <div class="item_in_cart">
-                    <img src="img/Layer_43.png" alt="item">
-                    <div class="product_in_cart_text ml_text">
-                        <a href="single_page.html"><h3>Rebox Zane</h3></a>
-                        <div class="star">
-                            <p>*****</p>
-                        </div>
-                        <span>1  x   $250</span>
-                    </div>
-                    <div class="action action__incart"><a href="#"><i class="fas fa-times-circle"></i></a></div>
-                </div>
-                <div class="total_price">
-                    <span>TOTAL</span> <span>$500.00</span>
-                </div>
-                <div class="buttons_cart">
-                    <a href="chekout.html" class="checkout">Checkout</a>
-                    <a href="shopping_cart.html" class="go-to-cart">Go to cart</a>
-                </div>
-            </div></div>
-            <a class="my_account" href="#">My Account</a>
+            <div class="anim_cart"><a href="shopping_cart.html"><img src="img/cart.svg" alt="cart"></a>
+                <div class="cart" id="cart"></div>
+                <div class="number_item" id="number"><span>0</span></div>
+            </div>
 
+            <a class="my_account" href="#">My Account</a>
         </div>
 
     </div>
@@ -301,7 +267,142 @@
                     <option value="8">08</option>
                 </select></div>
         </div>
-        <div class="items_preview">
+        <div class="container " id="goods"></div>
+        <div class="bottom_item_all">
+            <nav class="number_nav">
+                <a href="#">&lt;</a><a href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a
+                    href="#">6</a><a href="#">...</a><a href="#">20</a><a href="#">&gt;</a>
+            </nav>
+            <div class="button_view_all"><a href="#">View All</a></div>
+        </div>
+
+    </div>
+</div>
+
+<div class="ban_product">
+    <div class="container flex_ban">
+
+        <div class="inform_product">
+            <div class="info_icon">
+                <img src="img/Forma_1.svg" alt="icon">
+            </div>
+            <div class="info_text">
+                <h3>Free Delivery</h3>
+                <span>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.</span>
+            </div>
+
+        </div>
+        <div class="inform_product">
+            <div class="info_icon">
+                <img src="img/Forma_2.svg" alt="icon">
+            </div>
+            <div class="info_text">
+                <h3>Sales & discounts</h3>
+                <span>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.</span>
+            </div>
+
+        </div>
+        <div class="inform_product">
+            <div class="info_icon">
+                <img src="img/Forma_3.svg" alt="icon">
+            </div>
+            <div class="info_text">
+                <h3>Quality assurance</h3>
+                <span>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="subscribe">
+    <div class="fon_white">
+        <div class="container parent_subscribe">
+            <div class="slider_subscribe">
+                <div class="slider_subscribe_text_img"><img src="img/Layer_40.png" alt="foto"></div>
+                <div class="slider_subscribe_text">
+                    <blockquote>“Vestibulum quis porttitor dui! Quisque viverra nunc mi, a pulvinar purus condimentum a.
+                        Aliquam condimentum mattis neque sed pretium”
+                    </blockquote>
+                    <br><br>
+                    <address>Bin Burhan<br> <span>Dhaka, Bd</span></address>
+                </div>
+            </div>
+            <div class="subscribe_follow">
+                <div class="subscribe_text">
+                    <h3>Subscribe</h3>
+                    <span>FOR OUR NEWLETTER AND PROMOTION</span></div>
+                <div class="subscribe_input"><input type="email" placeholder="Enter Your Email">
+                    <button type="submit"><span>Subscribe</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer_all">
+    <div class="container footer">
+        <div class="footer_left_text">
+            <a class="logo" href="#"> <img src="img/logo.png" alt="logo">
+                <span>BRAN<span>D</span></span></a>
+            <p>Objectively transition extensive data rather than cross functional solutions. Monotonectally syndicate
+                multidisciplinary materials before go forward benefits. Intrinsicly syndicate an expanded array of
+                processes and cross-unit partnerships. <br><br> Efficiently plagiarize 24/365 action items and focused
+                infomediaries. Distinctively seize superior initiatives for wireless technologies. Dynamically optimize.
+                <!--<br> <br> <br>Objectively strategize seamless relationships via resource sucking testing procedures. Proactively cultivate next-generation results for value-added methodologies. Dynamically plagiarize unique methodologies after performance based methodologies. Monotonectally empower stand-alone mindshare rather than ubiquitous opportunities. Dynamically orchestrate resource sucking scenarios after alternative synergy. <br><br> Compellingly envisioneer corporate methods of empowerment before standards compliant technologies. Objectively facilitate progressive.-->
+            </p>
+        </div>
+        <nav class="company">
+            <a href="#"><span>COMPANY</span></a>
+            <div class="parent_a">
+                <a href="#">Home</a>
+                <a href="#">Shop</a>
+                <a href="#">About</a>
+                <a href="#">How It Works</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+        <nav class="information">
+            <a href="#"><span>INFORMATION</span></a>
+            <div class="parent_a">
+                <a href="#">Tearms & Condition</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">How to Buy</a>
+                <a href="#">How to Sell</a>
+                <a href="#">Promotion</a>
+            </div>
+        </nav>
+        <nav class="shop_category">
+            <a href="#"><span>SHOP CATEGORY</span></a>
+            <div class="parent_a">
+                <a href="#">Men</a>
+                <a href="#">Women</a>
+                <a href="#">Child</a>
+                <a href="#">Apparel</a>
+                <a href="#">Brows All</a>
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="footer_down">
+        <div class="container footer_down_all">
+            <div class="text_rigth_resersed"><span>© 2017  Brand  All Rights Reserved.</span></div>
+            <div class="button_social_web">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+</body>
+
+</html>
+<!--<div class="items_preview">
             <div class="item">
                 <a href="single_page.html">
                     <div class="img_items">
@@ -446,138 +547,4 @@
                     </div>
 
             </div>
-        </div>
-        <div class="bottom_item_all">
-            <nav class="number_nav">
-                <a href="#">&lt;</a><a href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a
-                    href="#">6</a><a href="#">...</a><a href="#">20</a><a href="#">&gt;</a>
-            </nav>
-            <div class="button_view_all"><a href="#">View All</a></div>
-        </div>
-
-    </div>
-</div>
-
-<div class="ban_product">
-    <div class="container flex_ban">
-
-        <div class="inform_product">
-            <div class="info_icon">
-                <img src="img/Forma_1.svg" alt="icon">
-            </div>
-            <div class="info_text">
-                <h3>Free Delivery</h3>
-                <span>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.</span>
-            </div>
-
-        </div>
-        <div class="inform_product">
-            <div class="info_icon">
-                <img src="img/Forma_2.svg" alt="icon">
-            </div>
-            <div class="info_text">
-                <h3>Sales & discounts</h3>
-                <span>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.</span>
-            </div>
-
-        </div>
-        <div class="inform_product">
-            <div class="info_icon">
-                <img src="img/Forma_3.svg" alt="icon">
-            </div>
-            <div class="info_text">
-                <h3>Quality assurance</h3>
-                <span>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.</span>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="subscribe">
-    <div class="fon_white">
-        <div class="container parent_subscribe">
-            <div class="slider_subscribe">
-                <div class="slider_subscribe_text_img"><img src="img/Layer_40.png" alt="foto"></div>
-                <div class="slider_subscribe_text">
-                    <blockquote>“Vestibulum quis porttitor dui! Quisque viverra nunc mi, a pulvinar purus condimentum a.
-                        Aliquam condimentum mattis neque sed pretium”
-                    </blockquote>
-                    <br><br>
-                    <address>Bin Burhan<br> <span>Dhaka, Bd</span></address>
-                </div>
-            </div>
-            <div class="subscribe_follow">
-                <div class="subscribe_text">
-                    <h3>Subscribe</h3>
-                    <span>FOR OUR NEWLETTER AND PROMOTION</span></div>
-                <div class="subscribe_input"><input type="email" placeholder="Enter Your Email">
-                    <button type="submit"><span>Subscribe</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<footer class="footer_all">
-    <div class="container footer">
-        <div class="footer_left_text">
-            <a class="logo" href="#"> <img src="img/logo.png" alt="logo">
-                <span>BRAN<span>D</span></span></a>
-            <p>Objectively transition extensive data rather than cross functional solutions. Monotonectally syndicate
-                multidisciplinary materials before go forward benefits. Intrinsicly syndicate an expanded array of
-                processes and cross-unit partnerships. <br><br> Efficiently plagiarize 24/365 action items and focused
-                infomediaries. Distinctively seize superior initiatives for wireless technologies. Dynamically optimize.
-                <!--<br> <br> <br>Objectively strategize seamless relationships via resource sucking testing procedures. Proactively cultivate next-generation results for value-added methodologies. Dynamically plagiarize unique methodologies after performance based methodologies. Monotonectally empower stand-alone mindshare rather than ubiquitous opportunities. Dynamically orchestrate resource sucking scenarios after alternative synergy. <br><br> Compellingly envisioneer corporate methods of empowerment before standards compliant technologies. Objectively facilitate progressive.-->
-            </p>
-        </div>
-        <nav class="company">
-            <a href="#"><span>COMPANY</span></a>
-            <div class="parent_a">
-                <a href="#">Home</a>
-                <a href="#">Shop</a>
-                <a href="#">About</a>
-                <a href="#">How It Works</a>
-                <a href="#">Contact</a>
-            </div>
-        </nav>
-        <nav class="information">
-            <a href="#"><span>INFORMATION</span></a>
-            <div class="parent_a">
-                <a href="#">Tearms & Condition</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">How to Buy</a>
-                <a href="#">How to Sell</a>
-                <a href="#">Promotion</a>
-            </div>
-        </nav>
-        <nav class="shop_category">
-            <a href="#"><span>SHOP CATEGORY</span></a>
-            <div class="parent_a">
-                <a href="#">Men</a>
-                <a href="#">Women</a>
-                <a href="#">Child</a>
-                <a href="#">Apparel</a>
-                <a href="#">Brows All</a>
-            </div>
-        </nav>
-
-    </div>
-
-    <div class="footer_down">
-        <div class="container footer_down_all">
-            <div class="text_rigth_resersed"><span>© 2017  Brand  All Rights Reserved.</span></div>
-            <div class="button_social_web">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                <a href="#"><i class="fab fa-google-plus-g"></i></a>
-            </div>
-        </div>
-
-    </div>
-</footer>
-
-</body>
-
-</html>
+        </div>-->

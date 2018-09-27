@@ -1748,7 +1748,7 @@ a:nth-child(4) {
     margin-bottom: 20px; }
 
 .number_item {
-  display: flex;
+  display: none;
   background-color: #ef5b70;
   color: #eaeaea;
   min-height: 25px;

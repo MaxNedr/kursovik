@@ -4,9 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Домашка</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
-          integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!--build:css css/styles.min.css-->
+    <link rel="stylesheet" href="fontawesome-free-5.3.1-web/css/all.css">
     <link rel="stylesheet" href="sass/style.css">
+    <!--endbuild-->
+    <!--build:js script/myscript.min.js -->
+    <script src="jquery-3.3.1.js"></script>
+    <script src="cart.js"></script>
+    <!-- endbuild -->
 </head>
 
 <body>
@@ -57,51 +62,12 @@
             </form>
         </div>
         <div class="header-left">
-            <div class="anim_cart"><a href="shopping_cart.html"><img src="img/cart.svg" alt="cart"></a><div class="cart">
-                <div class="triangle triangle__in-cart"></div>
-                <div class="item_in_cart">
-                    <img src="img/Layer_43.png" alt="item">
-                    <div class="product_in_cart_text ml_text">
-                        <a href="single_page.html"><h3>Rebox Zane</h3></a>
-                        <div class="star">
-                            <p>*****</p>
-                        </div>
-                        <span>1  x   $250</span>
-                    </div>
-                    <div class="action action__incart"><a href="#"><i class="fas fa-times-circle"></i></a></div>
-                </div>
-                <div class="item_in_cart">
-                    <img src="img/Layer_43.png" alt="item">
-                    <div class="product_in_cart_text ml_text">
-                        <a href="single_page.html"><h3>Rebox Zane</h3></a>
-                        <div class="star">
-                            <p>*****</p>
-                        </div>
-                        <span>1  x   $250</span>
-                    </div>
-                    <div class="action action__incart"><a href="#"><i class="fas fa-times-circle"></i></a></div>
-                </div>
-                <div class="item_in_cart">
-                    <img src="img/Layer_43.png" alt="item">
-                    <div class="product_in_cart_text ml_text">
-                        <a href="single_page.html"><h3>Rebox Zane</h3></a>
-                        <div class="star">
-                            <p>*****</p>
-                        </div>
-                        <span>1  x   $250</span>
-                    </div>
-                    <div class="action action__incart"><a href="#"><i class="fas fa-times-circle"></i></a></div>
-                </div>
-                <div class="total_price">
-                    <span>TOTAL</span> <span>$500.00</span>
-                </div>
-                <div class="buttons_cart">
-                    <a href="chekout.html" class="checkout">Checkout</a>
-                    <a href="shopping_cart.html" class="go-to-cart">Go to cart</a>
-                </div>
-            </div></div>
-            <a class="my_account" href="#">My Account</a>
+            <div class="anim_cart"><a href="shopping_cart.html"><img src="img/cart.svg" alt="cart"></a>
+                <div class="cart" id="cart"></div>
+                <div class="number_item" id="number"><span>0</span></div>
+            </div>
 
+            <a class="my_account" href="#">My Account</a>
         </div>
 
     </div>

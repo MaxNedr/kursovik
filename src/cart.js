@@ -85,6 +85,8 @@ function buildGoodsList() {
         dataType: 'json',
         success: function (cart) {
             var $divItemPreview = $('<div />').attr('class', 'items_preview');
+            var $divItemPreviewSP = $('#you_may');
+
 
             // Перебираем список товаров
             cart.forEach(function (item) {
@@ -110,6 +112,7 @@ function buildGoodsList() {
 
                 // Добавляем все в dom
                 $divItemPreview.append($div);
+                $divItemPreviewSP.append($div);
                 $div.append($a);
                 $a.append($divImageItem);
                 $a.append($divPricePlace);
@@ -121,11 +124,20 @@ function buildGoodsList() {
                 $addToCart.append($aShop);
                 $aShop.text('Add to Cart');
                 $aShop.prepend($imgShop);
+
             });
             // Добавляем все в dom
             $('#goods').append($divItemPreview);
+            $('#you_may').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+            });
+
         }
-    })
+    });
+
 }
 
 (function ($) {
@@ -196,5 +208,51 @@ function buildGoodsList() {
                 })
             }
         });
+        $('#you_may').on('click', '.add_to_cart', function (event) {
+            event.preventDefault();
+            // Определяем id товара, который пользователь хочет удалить
+            var id = $(this).attr('data-id');
+            // Пробуем найти такой товар в карзине
+            var entity = $('#cart [data-id="' + id + '"]');
+            if (entity.length) {
+                // Товар в корзине есть, отправляем запрос на увеличение количества
+                $.ajax({
+                    url: 'http://localhost:3000/cart/' + id,
+                    type: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    data: JSON.stringify({
+                        quantity: +$(entity).attr('data-quantity') + 1,
+                    }),
+                    success: function () {
+                        // Перестраиваем корзину
+                        buildCart();
+                    }
+                })
+            } else {
+                // Товара в корзине нет - создаем в количестве 1
+                $.ajax({
+                    url: 'http://localhost:3000/cart',
+                    type: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    data: JSON.stringify({
+                        id: id,
+                        quantity: 1,
+                        name: $(this).attr('data-name'),
+                        price: $(this).attr('data-price'),
+                        imgurl: $(this).attr('data-imgurl'),
+                    }),
+                    success: function () {
+                        // Перерисовываем корзину
+                        buildCart();
+                    }
+                })
+            }
+        });
+
+
     });
 })(jQuery);
