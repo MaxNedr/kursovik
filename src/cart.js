@@ -11,7 +11,7 @@ function buildCart() {
             var $total = $('<div />').attr('class', 'total_price');
             $total.html('<span>TOTAL</span> <span id="total"></span>');
             var $buttons_cart =$('<div />').attr('class', 'buttons_cart');
-            var $a_checkout=$('<a />').attr({href: 'checkout.html', class: "checkout"});
+            var $a_checkout=$('<a />').attr({href: 'chekout.html', class: "checkout"});
             $a_checkout.text('Checkout');
             var $a_shopping=$('<a />').attr({href: 'shopping_cart.html', class: "go-to-cart"});
             $a_shopping.text('Go to cart');
