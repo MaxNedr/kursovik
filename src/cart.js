@@ -10,10 +10,10 @@ function buildCart() {
         success: function (cart) {
             var $total = $('<div />').attr('class', 'total_price');
             $total.html('<span>TOTAL</span> <span id="total"></span>');
-            var $buttons_cart =$('<div />').attr('class', 'buttons_cart');
-            var $a_checkout=$('<a />').attr({href: 'chekout.html', class: "checkout"});
+            var $buttons_cart = $('<div />').attr('class', 'buttons_cart');
+            var $a_checkout = $('<a />').attr({href: 'chekout.html', class: "checkout"});
             $a_checkout.text('Checkout');
-            var $a_shopping=$('<a />').attr({href: 'shopping_cart.html', class: "go-to-cart"});
+            var $a_shopping = $('<a />').attr({href: 'shopping_cart.html', class: "go-to-cart"});
             $a_shopping.text('Go to cart');
             $buttons_cart.append($a_checkout);
             $buttons_cart.append($a_shopping);
@@ -21,9 +21,10 @@ function buildCart() {
 
             // Переменная для хранения стоимости товаров в корзине
             var amount = 0;
-
+            var total_quantity = 0;
             // Перебираем товары
             cart.forEach(function (item) {
+
                 var $item_in_cart = $('<div />').attr('class', 'item_in_cart');
                 var $img_item = $('<img />').attr('src', item.imgurl);
                 var $product_in_cart = $('<div />').attr('class', 'product_in_cart_text ml_text');
@@ -39,15 +40,10 @@ function buildCart() {
                 var $h3 = $('<h3 />', {text: item.name});
                 var $i = $('<i />').attr('class', 'fas fa-times-circle');
                 $star.html('<p>*****</p>');
-                // Создаем кнопку для удаления товара из корзины
-               /* var $button = $('<button />', {
-                    text: 'x',
-                    class: 'delete',
-                    'data-id': item.id,
-                    'data-quantity': item.quantity,
-                });*/
 
                 // Суммируем
+                total_quantity += +item.quantity;
+
                 amount += +item.quantity * +item.price;
 
                 // Добавляем все в dom
@@ -64,6 +60,13 @@ function buildCart() {
                 $('#cart').append($item_in_cart);
             });
             // Добавляем все в dom
+            if (total_quantity) {
+                $('#number').css('display', 'flex');
+                $('#number span').text(total_quantity);
+            } else {
+                $('#number').css('display', 'none');
+                $('#number span').text(total_quantity);
+            }
 
 
             $('#cart').append($total);

@@ -115,27 +115,6 @@
   ],
   "cart": [
     {
-      "id": "5",
-      "quantity": 1,
-      "name": "Mango People T-shirt",
-      "price": "52.00",
-      "imgurl": "img/Layer_6.png"
-    },
-    {
-      "id": "6",
-      "quantity": 1,
-      "name": "Mango People T-shirt",
-      "price": "52.00",
-      "imgurl": "img/Layer_7.png"
-    },
-    {
-      "id": "4",
-      "quantity": 1,
-      "name": "Mango People T-shirt",
-      "price": "52.00",
-      "imgurl": "img/Layer_5.png"
-    },
-    {
       "id": "3",
       "quantity": 1,
       "name": "Mango People T-shirt",

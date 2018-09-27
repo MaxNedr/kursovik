@@ -14,7 +14,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 body {
   line-height: 1;
-  font-family: 'Lato', sans-serif; }
+  font-family: "Lato", sans-serif; }
 
 a {
   text-decoration: none; }
@@ -26,11 +26,11 @@ blockquote, q {
   quotes: none; }
 
 blockquote:before, blockquote:after {
-  content: '';
+  content: "";
   content: none; }
 
 q:before, q:after {
-  content: '';
+  content: "";
   content: none; }
 
 table {
@@ -221,7 +221,7 @@ table {
     .browse summary::-webkit-details-marker {
       display: none; }
     .browse summary::after {
-      content: '\25B6';
+      content: "▶";
       padding-left: 0.5em;
       font-size: 12px;
       outline: none; }
@@ -233,7 +233,7 @@ table {
     text-align: left;
     text-transform: uppercase; }
   .browse details[open] summary::after {
-    content: '\25BC';
+    content: "▼";
     padding-left: -0.5em;
     outline: none; }
 
@@ -440,7 +440,6 @@ table {
 
 .item:hover .img_items {
   filter: brightness(50%); }
-
 .item:hover .add_to_cart {
   display: block; }
 
@@ -452,7 +451,6 @@ table {
   text-transform: uppercase;
   padding-left: 14px;
   padding-top: 20px; }
-
 .price_place h4 {
   color: #f16d7f;
   font-size: 16px;
@@ -971,7 +969,6 @@ a:nth-child(4) {
   font-weight: 700;
   text-align: center;
   margin-bottom: 17px; }
-
 .inform_product .info_text span {
   color: #fbfbfb;
   font-size: 14px;
@@ -979,11 +976,9 @@ a:nth-child(4) {
   line-height: 24px;
   text-align: center;
   display: flex; }
-
 .inform_product .info_icon {
   padding: 0 36px 36px;
   text-align: center; }
-
 .inform_product .info_text {
   margin-right: 0; }
 
@@ -1751,6 +1746,23 @@ a:nth-child(4) {
     border: 1px solid #eaeaea;
     padding: 20px 73px 20px 72px;
     margin-bottom: 20px; }
+
+.number_item {
+  display: flex;
+  background-color: #ef5b70;
+  color: #eaeaea;
+  min-height: 25px;
+  min-width: 25px;
+  border-radius: 50px;
+  position: absolute;
+  top: 27px;
+  left: 990px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px; }
+  .number_item span {
+    padding: 5px; }
 
 .anim_cart {
   padding: 15px; }
