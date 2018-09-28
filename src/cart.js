@@ -22,11 +22,13 @@ function buildCart() {
             // Переменная для хранения стоимости товаров в корзине
             var amount = 0;
             var total_quantity = 0;
+            var subtotal = 0;
             // Перебираем товары
             cart.forEach(function (item) {
 
                 var $item_in_cart = $('<div />').attr('class', 'item_in_cart');
                 var $img_item = $('<img />').attr('src', item.imgurl);
+                var $img_itemSC = $('<img />').attr('src', item.imgurl);
                 var $product_in_cart = $('<div />').attr('class', 'product_in_cart_text ml_text');
                 var $buttonAction = $('<div />').attr('class', 'action action__incart');
                 var $a = $('<a />').attr('href', 'single_page.html');
@@ -40,6 +42,36 @@ function buildCart() {
                 var $h3 = $('<h3 />', {text: item.name});
                 var $i = $('<i />').attr('class', 'fas fa-times-circle');
                 $star.html('<p>*****</p>');
+
+                //Разметка для страницы shopping_cart
+                var $a_2 = $('<a />').attr('href', 'single_page.html');
+                var $h3_2 = $('<h3 />', {text: item.name});
+                var $i2 = $('<i />').attr('class', 'fas fa-times-circle');
+                var $aInAction2 = $('<a />', {
+                    class: 'deleteSC',
+                    'data-id': item.id,
+                    'data-quantity': item.quantity,
+                }).attr('href', '#');
+                var $product_in_cartSC = $('<div />').attr('class', 'product_in_cart');
+                var $product_in_cart_viewSC = $('<div />').attr('class', 'product_in_cart_view');
+                var $product_in_cart_indexSC = $('<div />').attr('class', 'product_in_cart_index');
+                var $product_in_cart_textSC = $('<div />').attr('class', 'product_in_cart_text');
+                var $price_in_cart = $('<div />').attr('class', 'price_in_cart');
+                var $quantity = $('<div />').attr('class', 'quantity');
+                var $inputQuantity = $('<input />', {
+                    type: 'number',
+                    id: "quantity_in_cart",
+                    min: '1',
+                    value: +item.quantity
+                });
+                //  $quantity.html('<input type="number" id="quantity_in_cart" min="1">');
+                var $shipping = $('<div />').attr('class', 'shipping');
+                var $subtotal = $('<div />').attr('class', 'subtotal');
+                var $action = $('<div />').attr('class', 'action');
+                var $span_price = $('<span />', {text: '$ ' + item.price});
+                $product_in_cart_textSC.html('<p>Color: <span>Red</span><br>Size: <span>Xll</span></p>');
+                $shipping.html('<span>FREE</span>');
+                $subtotal.html('<span></span>');
 
                 // Суммируем
                 total_quantity += +item.quantity;
@@ -56,8 +88,29 @@ function buildCart() {
                 $item_in_cart.append($img_item);
                 $item_in_cart.append($product_in_cart);
                 $item_in_cart.append($buttonAction);
-
                 $('#cart').append($item_in_cart);
+
+                //для большой корзины
+                $a_2.append($h3_2);
+                $aInAction2.append($i2);
+                $product_in_cart_viewSC.append($img_itemSC);
+                $product_in_cart_textSC.prepend($a_2);
+                $product_in_cart_viewSC.append($product_in_cart_textSC);
+                $action.append($aInAction2);
+                $product_in_cart_indexSC.append($price_in_cart);
+                $price_in_cart.append($span_price);
+                $product_in_cart_indexSC.append($quantity);
+                $product_in_cart_indexSC.append($shipping);
+                $product_in_cart_indexSC.append($subtotal);
+                $product_in_cart_indexSC.append($action);
+                $quantity.append($inputQuantity);
+                $subtotal.append(item.subtotal);
+
+                //$a.append($h3);
+                $product_in_cartSC.append($product_in_cart_viewSC);
+                $product_in_cartSC.append($product_in_cart_indexSC);
+                $('#itemInCart').append($product_in_cartSC);
+
             });
             // Добавляем все в dom
             if (total_quantity) {
@@ -67,7 +120,6 @@ function buildCart() {
                 $('#number').css('display', 'none');
                 $('#number span').text(total_quantity);
             }
-
 
             $('#cart').append($total);
             $('#cart').append($buttons_cart);
@@ -162,7 +214,21 @@ function buildGoodsList() {
                 }
             })
         });
-
+        $('#itemInCart').on('click', '.deleteSC', function (event) {
+            event.preventDefault();
+            // Получаем id товара, который пользователь хочет удалить
+            var id = $(this).attr('data-id');
+            // Отправляем запрос на удаление
+            $.ajax({
+                url: 'http://localhost:3000/cart/' + id,
+                type: 'DELETE',
+                success: function () {
+                    // Перерисовываем корзины
+                    buildCart();
+                }
+            });
+            location.reload(true);
+        });
         // Слушаем нажатия на кнопку Купить
         $('#goods').on('click', '.add_to_cart', function (event) {
             event.preventDefault();
@@ -170,6 +236,8 @@ function buildGoodsList() {
             var id = $(this).attr('data-id');
             // Пробуем найти такой товар в карзине
             var entity = $('#cart [data-id="' + id + '"]');
+            var price = +$(this).attr('data-price');
+            var quant = +$(entity).attr('data-quantity') + 1;
             if (entity.length) {
                 // Товар в корзине есть, отправляем запрос на увеличение количества
                 $.ajax({
@@ -180,6 +248,7 @@ function buildGoodsList() {
                     },
                     data: JSON.stringify({
                         quantity: +$(entity).attr('data-quantity') + 1,
+                        subtotal: +quant * price
                     }),
                     success: function () {
                         // Перестраиваем корзину
@@ -200,6 +269,7 @@ function buildGoodsList() {
                         name: $(this).attr('data-name'),
                         price: $(this).attr('data-price'),
                         imgurl: $(this).attr('data-imgurl'),
+                        subtotal: $(this).attr('data-price'),
                     }),
                     success: function () {
                         // Перерисовываем корзину
