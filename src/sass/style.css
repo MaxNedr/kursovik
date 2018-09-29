@@ -1131,7 +1131,10 @@ a:nth-child(4) {
   padding-left: 15px; }
 
 .quantity {
-  padding-left: 16px; }
+  display: flex;
+  padding-left: 16px;
+  justify-content: center;
+  align-items: center; }
   .quantity input {
     border: 1px solid #eaeaea;
     box-sizing: border-box;
@@ -1768,5 +1771,39 @@ a:nth-child(4) {
   padding: 15px; }
   .anim_cart:hover .cart {
     display: flex; }
+
+.goods_product {
+  height: 100%;
+  width: 100%; }
+
+.buttonPlusMinus {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  padding: 5px;
+  align-items: center;
+  align-content: center; }
+
+.buttonM {
+  border-radius: 10px;
+  outline: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  height: 15px;
+  width: 15px; }
+
+.buttonP {
+  border-radius: 10px;
+  outline: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  height: 15px;
+  width: 15px; }
 
 /*# sourceMappingURL=style.css.map */

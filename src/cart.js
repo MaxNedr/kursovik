@@ -22,7 +22,6 @@ function buildCart() {
             // Переменная для хранения стоимости товаров в корзине
             var amount = 0;
             var total_quantity = 0;
-            var subtotal = 0;
             // Перебираем товары
             cart.forEach(function (item) {
 
@@ -42,6 +41,22 @@ function buildCart() {
                 var $h3 = $('<h3 />', {text: item.name});
                 var $i = $('<i />').attr('class', 'fas fa-times-circle');
                 $star.html('<p>*****</p>');
+                // Суммируем
+                total_quantity += +item.quantity;
+
+                amount += +item.quantity * +item.price;
+
+                // Добавляем все в dom
+                $aInAction.append($i);
+                $buttonAction.append($aInAction);
+                $a.append($h3);
+                $product_in_cart.append($a);
+                $product_in_cart.append($star);
+                $product_in_cart.append($span);
+                $item_in_cart.append($img_item);
+                $item_in_cart.append($product_in_cart);
+                $item_in_cart.append($buttonAction);
+                $('#cart').append($item_in_cart);
 
                 //Разметка для страницы shopping_cart
                 var $a_2 = $('<a />').attr('href', 'single_page.html');
@@ -68,27 +83,15 @@ function buildCart() {
                 var $shipping = $('<div />').attr('class', 'shipping');
                 var $subtotal = $('<div />').attr('class', 'subtotal');
                 var $action = $('<div />').attr('class', 'action');
+                var $buttonPlusMinus = $('<div />').attr('class', 'buttonPlusMinus');
+                var $buttonP = $('<button />', {text:'+'}).attr('class', 'buttonPM');
+                var $buttonM = $('<button />', {text:'-'}).attr('class', 'buttonPM');
                 var $span_price = $('<span />', {text: '$ ' + item.price});
                 $product_in_cart_textSC.html('<p>Color: <span>Red</span><br>Size: <span>Xll</span></p>');
                 $shipping.html('<span>FREE</span>');
-                $subtotal.html('<span></span>');
+                $quantity.html('<span></span>');
 
-                // Суммируем
-                total_quantity += +item.quantity;
 
-                amount += +item.quantity * +item.price;
-
-                // Добавляем все в dom
-                $aInAction.append($i);
-                $buttonAction.append($aInAction);
-                $a.append($h3);
-                $product_in_cart.append($a);
-                $product_in_cart.append($star);
-                $product_in_cart.append($span);
-                $item_in_cart.append($img_item);
-                $item_in_cart.append($product_in_cart);
-                $item_in_cart.append($buttonAction);
-                $('#cart').append($item_in_cart);
 
                 //для большой корзины
                 $a_2.append($h3_2);
@@ -103,8 +106,11 @@ function buildCart() {
                 $product_in_cart_indexSC.append($shipping);
                 $product_in_cart_indexSC.append($subtotal);
                 $product_in_cart_indexSC.append($action);
-                $quantity.append($inputQuantity);
-                $subtotal.append(item.subtotal);
+                $quantity.append($buttonPlusMinus);
+                $buttonPlusMinus.append($buttonP);
+                $buttonPlusMinus.append($buttonM);
+                $subtotal.append('$ '+item.subtotal);
+                $quantity.prepend(item.quantity);
 
                 //$a.append($h3);
                 $product_in_cartSC.append($product_in_cart_viewSC);
@@ -229,6 +235,36 @@ function buildGoodsList() {
             });
             location.reload(true);
         });
+        $('#itemInCart').on('click', '.buttonP', function (event) {
+            event.preventDefault();
+            // Получаем id товара, который пользователь хочет удалить
+            var id = $(this).attr('data-id');
+            // Отправляем запрос на удаление
+            $.ajax({
+                url: 'http://localhost:3000/cart/' + id,
+                type: 'DELETE',
+                success: function () {
+                    // Перерисовываем корзины
+                    buildCart();
+                }
+            });
+            location.reload(true);
+        });
+        $('#itemInCart').on('click', '.deleteSC', function (event) {
+            event.preventDefault();
+            // Получаем id товара, который пользователь хочет удалить
+            var id = $(this).attr('data-id');
+            // Отправляем запрос на удаление
+            $.ajax({
+                url: 'http://localhost:3000/cart/' + id,
+                type: 'DELETE',
+                success: function () {
+                    // Перерисовываем корзины
+                    buildCart();
+                }
+            });
+            location.reload(true);
+        });
         // Слушаем нажатия на кнопку Купить
         $('#goods').on('click', '.add_to_cart', function (event) {
             event.preventDefault();
@@ -284,6 +320,8 @@ function buildGoodsList() {
             var id = $(this).attr('data-id');
             // Пробуем найти такой товар в карзине
             var entity = $('#cart [data-id="' + id + '"]');
+            var price = +$(this).attr('data-price');
+            var quant = +$(entity).attr('data-quantity') + 1;
             if (entity.length) {
                 // Товар в корзине есть, отправляем запрос на увеличение количества
                 $.ajax({
@@ -294,6 +332,7 @@ function buildGoodsList() {
                     },
                     data: JSON.stringify({
                         quantity: +$(entity).attr('data-quantity') + 1,
+                        subtotal: +quant * price
                     }),
                     success: function () {
                         // Перестраиваем корзину
@@ -314,6 +353,7 @@ function buildGoodsList() {
                         name: $(this).attr('data-name'),
                         price: $(this).attr('data-price'),
                         imgurl: $(this).attr('data-imgurl'),
+                        subtotal: $(this).attr('data-price'),
                     }),
                     success: function () {
                         // Перерисовываем корзину
