@@ -77,19 +77,22 @@ function buildCart() {
                     type: 'number',
                     id: "quantity_in_cart",
                     min: '1',
-                    value: +item.quantity
+                    value: item.quantity,
+                    'data-id': item.id,
+                    'data-quantity': item.quantity,
+                    'data-price': item.price
+
                 });
-                //  $quantity.html('<input type="number" id="quantity_in_cart" min="1">');
+                // $quantity.html('<input type="number" id="quantity_in_cart" min="1">');
                 var $shipping = $('<div />').attr('class', 'shipping');
                 var $subtotal = $('<div />').attr('class', 'subtotal');
                 var $action = $('<div />').attr('class', 'action');
-                var $buttonPlusMinus = $('<div />').attr('class', 'buttonPlusMinus');
-                var $buttonP = $('<button />', {text:'+'}).attr('class', 'buttonPM');
-                var $buttonM = $('<button />', {text:'-'}).attr('class', 'buttonPM');
+                //var $buttonPlusMinus = $('<div />').attr('class', 'buttonPlusMinus');
+               // var $buttonP = $('<button />', {text:'+'}).attr('class', 'buttonPM');
+               // var $buttonM = $('<button />', {text:'-'}).attr('class', 'buttonPM');
                 var $span_price = $('<span />', {text: '$ ' + item.price});
                 $product_in_cart_textSC.html('<p>Color: <span>Red</span><br>Size: <span>Xll</span></p>');
                 $shipping.html('<span>FREE</span>');
-                $quantity.html('<span></span>');
 
 
 
@@ -106,11 +109,10 @@ function buildCart() {
                 $product_in_cart_indexSC.append($shipping);
                 $product_in_cart_indexSC.append($subtotal);
                 $product_in_cart_indexSC.append($action);
-                $quantity.append($buttonPlusMinus);
-                $buttonPlusMinus.append($buttonP);
-                $buttonPlusMinus.append($buttonM);
+                $quantity.append($inputQuantity);
+                //$buttonPlusMinus.append($buttonP);
+               // $buttonPlusMinus.append($buttonM);
                 $subtotal.append('$ '+item.subtotal);
-                $quantity.prepend(item.quantity);
 
                 //$a.append($h3);
                 $product_in_cartSC.append($product_in_cart_viewSC);
@@ -235,36 +237,7 @@ function buildGoodsList() {
             });
             location.reload(true);
         });
-        $('#itemInCart').on('click', '.buttonP', function (event) {
-            event.preventDefault();
-            // Получаем id товара, который пользователь хочет удалить
-            var id = $(this).attr('data-id');
-            // Отправляем запрос на удаление
-            $.ajax({
-                url: 'http://localhost:3000/cart/' + id,
-                type: 'DELETE',
-                success: function () {
-                    // Перерисовываем корзины
-                    buildCart();
-                }
-            });
-            location.reload(true);
-        });
-        $('#itemInCart').on('click', '.deleteSC', function (event) {
-            event.preventDefault();
-            // Получаем id товара, который пользователь хочет удалить
-            var id = $(this).attr('data-id');
-            // Отправляем запрос на удаление
-            $.ajax({
-                url: 'http://localhost:3000/cart/' + id,
-                type: 'DELETE',
-                success: function () {
-                    // Перерисовываем корзины
-                    buildCart();
-                }
-            });
-            location.reload(true);
-        });
+
         // Слушаем нажатия на кнопку Купить
         $('#goods').on('click', '.add_to_cart', function (event) {
             event.preventDefault();
@@ -313,6 +286,37 @@ function buildGoodsList() {
                     }
                 })
             }
+        });
+        $('#itemInCart').on('change','#quantity_in_cart', function (event) {
+            event.preventDefault();
+            // Определяем id товара, который пользователь хочет удалить
+            var id = $(this).attr('data-id');
+            // Пробуем найти такой товар в карзине
+            var entity = $('#cart [data-id="' + id + '"]');
+            var price = +$(this).attr('data-price');
+            console.log(price);
+            var quant = +$('#quantity_in_cart').val();
+            if (entity.length) {
+                // Товар в корзине есть, отправляем запрос на увеличение количества
+                $.ajax({
+                    url: 'http://localhost:3000/cart/' + id,
+                    type: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    data: JSON.stringify({
+                        quantity: quant,
+                        subtotal: +quant * price
+                    }),
+                    success: function () {
+                        // Перестраиваем корзину
+                        buildCart();
+                    }
+                });
+            } else {
+               console.log("елсе сработал")
+            }
+            location.reload(true)
         });
         $('#you_may').on('click', '.add_to_cart', function (event) {
             event.preventDefault();
