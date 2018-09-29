@@ -236,19 +236,19 @@
   "cart": [
     {
       "id": "3",
-      "quantity": 7,
+      "quantity": 13,
       "name": "Mango People T-shirt",
       "price": "52.00",
       "imgurl": "img/Layer_4.png",
-      "subtotal": 364
+      "subtotal": 676
     },
     {
       "id": "4",
-      "quantity": 1,
+      "quantity": 8,
       "name": "Mango People T-shirt",
       "price": "52.00",
       "imgurl": "img/Layer_5.png",
-      "subtotal": "52.00"
+      "subtotal": 416
     }
   ]
 }

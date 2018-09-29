@@ -75,7 +75,7 @@ function buildCart() {
                 var $quantity = $('<div />').attr('class', 'quantity');
                 var $inputQuantity = $('<input />', {
                     type: 'number',
-                    id: "quantity_in_cart",
+                    class: "quantity_in_cart",
                     min: '1',
                     value: item.quantity,
                     'data-id': item.id,
@@ -287,15 +287,15 @@ function buildGoodsList() {
                 })
             }
         });
-        $('#itemInCart').on('change','#quantity_in_cart', function (event) {
+        $('#itemInCart').on('change','.quantity_in_cart', function (event) {
             event.preventDefault();
             // Определяем id товара, который пользователь хочет удалить
             var id = $(this).attr('data-id');
             // Пробуем найти такой товар в карзине
             var entity = $('#cart [data-id="' + id + '"]');
             var price = +$(this).attr('data-price');
-            console.log(price);
-            var quant = +$('#quantity_in_cart').val();
+            var quant = +$(this).val();
+            var $itemSubtotal = quant * price;
             if (entity.length) {
                 // Товар в корзине есть, отправляем запрос на увеличение количества
                 $.ajax({
@@ -309,14 +309,16 @@ function buildGoodsList() {
                         subtotal: +quant * price
                     }),
                     success: function () {
+                        $(this).parent().find('.subtotal').text($itemSubtotal);
                         // Перестраиваем корзину
                         buildCart();
+
                     }
                 });
             } else {
                console.log("елсе сработал")
             }
-            location.reload(true)
+            //location.reload(true)
         });
         $('#you_may').on('click', '.add_to_cart', function (event) {
             event.preventDefault();
