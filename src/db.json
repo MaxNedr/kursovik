@@ -233,14 +233,5 @@
       "price": 567
     }
   ],
-  "cart": [
-    {
-      "id": "3",
-      "quantity": 9,
-      "name": "Mango People T-shirt",
-      "price": "52.00",
-      "imgurl": "img/Layer_4.png",
-      "subtotal": 468
-    }
-  ]
+  "cart": []
 }

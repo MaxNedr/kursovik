@@ -224,6 +224,7 @@ function buildGoodsList() {
                 }
             })
         });
+        // Слушаем нажатия на удаление товара из корзины на странице корзины
         $('#itemInCart').on('click', '.deleteSC', function (event) {
             event.preventDefault();
             // Получаем id товара, который пользователь хочет удалить
@@ -239,7 +240,6 @@ function buildGoodsList() {
             });
             location.reload(true);
         });
-
         // Слушаем нажатия на кнопку Купить
         $('#goods').on('click', '.add_to_cart', function (event) {
             event.preventDefault();
@@ -289,40 +289,6 @@ function buildGoodsList() {
                 })
             }
         });
-        $('#itemInCart').on('change','.quantity_in_cart', function (event) {
-            event.preventDefault();
-            // Определяем id товара, который пользователь хочет удалить
-            var id = $(this).attr('data-id');
-            // Пробуем найти такой товар в карзине
-            var entity = $('#cart [data-id="' + id + '"]');
-            var price = +$(this).attr('data-price');
-            var quant = +$(this).val();
-            var $itemSubtotal = quant * price;
-            if (entity.length) {
-                // Товар в корзине есть, отправляем запрос на увеличение количества
-                $.ajax({
-                    url: 'http://localhost:3000/cart/' + id,
-                    type: 'PATCH',
-                    headers: {
-                        'content-type': 'application/json',
-                    },
-                    data: JSON.stringify({
-                        quantity: quant,
-                        subtotal: +quant * price
-                    }),
-                    success: function () {
-                        $('#itemInCart').empty();
-                       // не работает $(this).parent().parent().find('.subtotal').text($itemSubtotal);
-                        // Перестраиваем корзину
-                        buildCart();
-
-                    }
-                });
-            } else {
-               console.log("елсе сработал")
-            }
-            //location.reload(true)
-        });
         $('#you_may').on('click', '.add_to_cart', function (event) {
             event.preventDefault();
             // Определяем id товара, который пользователь хочет удалить
@@ -371,7 +337,66 @@ function buildGoodsList() {
                 })
             }
         });
+        // Слушаем нажатия на кнопку изменения количества
+        $('#itemInCart').on('change','.quantity_in_cart', function (event) {
+            event.preventDefault();
+            // Определяем id товара, который пользователь хочет удалить
+            var id = $(this).attr('data-id');
+            // Пробуем найти такой товар в карзине
+            var entity = $('#cart [data-id="' + id + '"]');
+            var price = +$(this).attr('data-price');
+            var quant = +$(this).val();
+            var $itemSubtotal = quant * price;
+            if (entity.length) {
+                // Товар в корзине есть, отправляем запрос на увеличение количества
+                $.ajax({
+                    url: 'http://localhost:3000/cart/' + id,
+                    type: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    data: JSON.stringify({
+                        quantity: quant,
+                        subtotal: +quant * price
+                    }),
+                    success: function () {
+                        $('#itemInCart').empty();
+                        // не работает $(this).parent().parent().find('.subtotal').text($itemSubtotal);
+                        // Перестраиваем корзину
+                        buildCart();
 
+                    }
+                });
+            } else {
+                console.log("елсе сработал")
+            }
+            //location.reload(true)
+        });
+        $('#clear_cart').on('click', function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: 'http://localhost:3000/cart',
+                dataType: 'json',
+                success: function (cart) {
+                    cart.forEach(function (item) {
+                        if (item.id){
+                            $.ajax({
+                                url: 'http://localhost:3000/cart/'+item.id,
+                                type: 'DELETE',
+                                success: function () {
+                                    // Перерисовываем корзины
+                                    console.log(item.id);
+                                   buildCart();
+                                }
+                            })
+                        }
+                    });
+                    location.reload(true)
+                }
+            });
+            // Отправляем запрос на удаление
+
+        })
 
     });
 })(jQuery);
