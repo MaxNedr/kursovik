@@ -118,6 +118,8 @@ function buildCart() {
                 $product_in_cartSC.append($product_in_cart_viewSC);
                 $product_in_cartSC.append($product_in_cart_indexSC);
                 $('#itemInCart').append($product_in_cartSC);
+                $('#subtotal').text('$ ' + amount);
+                $('#grandSubtotal').text('$ '+ amount)
 
             });
             // Добавляем все в dom
@@ -309,7 +311,8 @@ function buildGoodsList() {
                         subtotal: +quant * price
                     }),
                     success: function () {
-                        $(this).parent().find('.subtotal').text($itemSubtotal);
+                        $('#itemInCart').empty();
+                       // не работает $(this).parent().parent().find('.subtotal').text($itemSubtotal);
                         // Перестраиваем корзину
                         buildCart();
 
