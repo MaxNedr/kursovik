@@ -434,6 +434,8 @@ table {
   align-content: flex-start; }
 
 .img_items {
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 280px;
   background-color: #e9e9e9; }
