@@ -88,12 +88,11 @@ function buildCart() {
                 var $subtotal = $('<div />').attr('class', 'subtotal');
                 var $action = $('<div />').attr('class', 'action');
                 //var $buttonPlusMinus = $('<div />').attr('class', 'buttonPlusMinus');
-               // var $buttonP = $('<button />', {text:'+'}).attr('class', 'buttonPM');
-               // var $buttonM = $('<button />', {text:'-'}).attr('class', 'buttonPM');
+                // var $buttonP = $('<button />', {text:'+'}).attr('class', 'buttonPM');
+                // var $buttonM = $('<button />', {text:'-'}).attr('class', 'buttonPM');
                 var $span_price = $('<span />', {text: '$ ' + item.price});
                 $product_in_cart_textSC.html('<p>Color: <span>Red</span><br>Size: <span>Xll</span></p>');
                 $shipping.html('<span>FREE</span>');
-
 
 
                 //для большой корзины
@@ -111,15 +110,15 @@ function buildCart() {
                 $product_in_cart_indexSC.append($action);
                 $quantity.append($inputQuantity);
                 //$buttonPlusMinus.append($buttonP);
-               // $buttonPlusMinus.append($buttonM);
-                $subtotal.append('$ '+item.subtotal);
+                // $buttonPlusMinus.append($buttonM);
+                $subtotal.append('$ ' + item.subtotal);
 
                 //$a.append($h3);
                 $product_in_cartSC.append($product_in_cart_viewSC);
                 $product_in_cartSC.append($product_in_cart_indexSC);
                 $('#itemInCart').append($product_in_cartSC);
                 $('#subtotal').text('$ ' + amount);
-                $('#grandSubtotal').text('$ '+ amount)
+                $('#grandSubtotal').text('$ ' + amount)
 
             });
             // Добавляем все в dom
@@ -140,13 +139,68 @@ function buildCart() {
     })
 }
 
-function buildGoodsList() {
+function buildGoodsList_1to6() {
+    // Запрашиваем список товаров на складе
+    $.ajax({
+        url: 'http://localhost:3000/items?_page=1&_limit=6',
+        dataType: 'json',
+        success: function (cart) {
+            var $divItemPreview = $('<div />').attr('class', 'items_preview');
+
+
+            // Перебираем список товаров
+            cart.forEach(function (item) {
+                var $div = $('<div />').attr('class', 'item');
+                var $divPosition = $('<div />').attr('class', 'position_add_to_cart');
+                var $a = $('<a />').attr("href", "single_page.html");
+                var $aShop = $('<a />').attr("href", "#");
+                var $divImageItem = $('<div />').attr('class', 'img_items');
+                var $divPricePlace = $('<div />').attr('class', 'price_place');
+                var $nameItem = $('<H3 />');
+                var $price = $('<H4 />');
+                var $img = $('<img >');
+                var $imgShop = $('<img >').attr('src', 'img/Forma_cart_white.svg');
+                var $addToCart = $('<div >').attr('class', 'add_to_cart');
+                $addToCart.attr("data-id", item.id);
+                $addToCart.attr("data-name", item.name);
+                $addToCart.attr("data-price", item.price);
+                $addToCart.attr("data-imgurl", item.imgurl);
+                $div.attr('id', item.id);
+                $img.attr('src', item.imgurl);
+                $nameItem.text(item.name);
+                $price.text('$ ' + item.price);
+
+                // Добавляем все в dom
+
+                $divItemPreview.append($div);
+
+
+                $div.append($a);
+                $a.append($divImageItem);
+                $a.append($divPricePlace);
+                $divImageItem.append($img);
+                $divPricePlace.append($nameItem);
+                $divPricePlace.append($price);
+                $div.append($divPosition);
+                $divPosition.append($addToCart);
+                $addToCart.append($aShop);
+                $aShop.text('Add to Cart');
+                $aShop.prepend($imgShop);
+            });
+            // Добавляем все в dom
+            $('#goods').append($divItemPreview);
+
+        }
+    });
+    $('#1').css({color: '#ef5b70'});
+}
+
+function buildGoodsListSlider() {
     // Запрашиваем список товаров на складе
     $.ajax({
         url: 'http://localhost:3000/items',
         dataType: 'json',
         success: function (cart) {
-            var $divItemPreview = $('<div />').attr('class', 'items_preview');
             var $divItemPreviewSP = $('#you_may');
 
 
@@ -173,8 +227,69 @@ function buildGoodsList() {
                 $price.text('$ ' + item.price);
 
                 // Добавляем все в dom
-                $divItemPreview.append($div);
+
                 $divItemPreviewSP.append($div);
+
+                $div.append($a);
+                $a.append($divImageItem);
+                $a.append($divPricePlace);
+                $divImageItem.append($img);
+                $divPricePlace.append($nameItem);
+                $divPricePlace.append($price);
+                $div.append($divPosition);
+                $divPosition.append($addToCart);
+                $addToCart.append($aShop);
+                $aShop.text('Add to Cart');
+                $aShop.prepend($imgShop);
+            });
+            // Добавляем все в dom
+            $('#you_may').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+            });
+
+        }
+    });
+
+}
+
+function buildGoodsListMain() {
+    // Запрашиваем список товаров на складе
+    $.ajax({
+        url: 'http://localhost:3000/items?_page=1&_limit=8',
+        dataType: 'json',
+        success: function (cart) {
+            var $divItemPreviewM = $('<div />').attr('class', 'items_preview');
+
+
+            // еребираем список товаров
+            cart.forEach(function (item) {
+                var $div = $('<div />').attr('class', 'item');
+                var $divPosition = $('<div />').attr('class', 'position_add_to_cart');
+                var $a = $('<a />').attr("href", "single_page.html");
+                var $aShop = $('<a />').attr("href", "#");
+                var $divImageItem = $('<div />').attr('class', 'img_items');
+                var $divPricePlace = $('<div />').attr('class', 'price_place');
+                var $nameItem = $('<H3 />');
+                var $price = $('<H4 />');
+                var $img = $('<img >');
+                var $imgShop = $('<img >').attr('src', 'img/Forma_cart_white.svg');
+                var $addToCart = $('<div >').attr('class', 'add_to_cart');
+                $addToCart.attr("data-id", item.id);
+                $addToCart.attr("data-name", item.name);
+                $addToCart.attr("data-price", item.price);
+                $addToCart.attr("data-imgurl", item.imgurl);
+                $div.attr('id', item.id);
+                $img.attr('src', item.imgurl);
+                $nameItem.text(item.name);
+                $price.text('$ ' + item.price);
+
+                // Добавляем все в dom
+                $divItemPreviewM.append($div);
+
+
                 $div.append($a);
                 $a.append($divImageItem);
                 $a.append($divPricePlace);
@@ -189,13 +304,8 @@ function buildGoodsList() {
 
             });
             // Добавляем все в dom
-            $('#goods').append($divItemPreview);
-            $('#you_may').slick({
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 2000,
-            });
+            $('#goods_main').append($divItemPreviewM);
+
 
         }
     });
@@ -207,9 +317,359 @@ function buildGoodsList() {
         // Рисуем корзину
         buildCart();
         // Рисуем список товаров
-        buildGoodsList();
+        buildGoodsList_1to6();
+        buildGoodsListMain();
+        buildGoodsListSlider();
 
         // Слушаем нажатия на удаление товара из корзины
+        $('#1').on('click', function (event) {
+            event.preventDefault();
+            $('#goods').empty();
+            buildGoodsList_1to6();
+            $('.number_nav>a').css({color: '#c4c4c4'});
+            $('#1').css({color: '#ef5b70'});
+        });
+        $('#2').on('click', function (event) {
+            event.preventDefault();
+            $('#goods').empty();
+            $.ajax({
+                url: 'http://localhost:3000/items?_page=2&_limit=6',
+                dataType: 'json',
+                success: function (cart) {
+                    var $divItemPreview = $('<div />').attr('class', 'items_preview');
+
+
+                    // Перебираем список товаров
+                    cart.forEach(function (item) {
+                        var $div = $('<div />').attr('class', 'item');
+                        var $divPosition = $('<div />').attr('class', 'position_add_to_cart');
+                        var $a = $('<a />').attr("href", "single_page.html");
+                        var $aShop = $('<a />').attr("href", "#");
+                        var $divImageItem = $('<div />').attr('class', 'img_items');
+                        var $divPricePlace = $('<div />').attr('class', 'price_place');
+                        var $nameItem = $('<H3 />');
+                        var $price = $('<H4 />');
+                        var $img = $('<img >');
+                        var $imgShop = $('<img >').attr('src', 'img/Forma_cart_white.svg');
+                        var $addToCart = $('<div >').attr('class', 'add_to_cart');
+                        $addToCart.attr("data-id", item.id);
+                        $addToCart.attr("data-name", item.name);
+                        $addToCart.attr("data-price", item.price);
+                        $addToCart.attr("data-imgurl", item.imgurl);
+                        $div.attr('id', item.id);
+                        $img.attr('src', item.imgurl);
+                        $nameItem.text(item.name);
+                        $price.text('$ ' + item.price);
+
+                        // Добавляем все в dom
+
+                        $divItemPreview.append($div);
+
+
+                        $div.append($a);
+                        $a.append($divImageItem);
+                        $a.append($divPricePlace);
+                        $divImageItem.append($img);
+                        $divPricePlace.append($nameItem);
+                        $divPricePlace.append($price);
+                        $div.append($divPosition);
+                        $divPosition.append($addToCart);
+                        $addToCart.append($aShop);
+                        $aShop.text('Add to Cart');
+                        $aShop.prepend($imgShop);
+                    });
+                    // Добавляем все в dom
+                    $('#goods').append($divItemPreview);
+
+                }
+            });
+            $('.number_nav>a').css({color: '#c4c4c4'});
+            $('#2').css({color: '#ef5b70'});
+        });
+        $('#3').on('click', function (event) {
+            event.preventDefault();
+            $('#goods').empty();
+            $.ajax({
+                url: 'http://localhost:3000/items?_page=3&_limit=6',
+                dataType: 'json',
+                success: function (cart) {
+                    var $divItemPreview = $('<div />').attr('class', 'items_preview');
+
+
+                    // Перебираем список товаров
+                    cart.forEach(function (item) {
+                        var $div = $('<div />').attr('class', 'item');
+                        var $divPosition = $('<div />').attr('class', 'position_add_to_cart');
+                        var $a = $('<a />').attr("href", "single_page.html");
+                        var $aShop = $('<a />').attr("href", "#");
+                        var $divImageItem = $('<div />').attr('class', 'img_items');
+                        var $divPricePlace = $('<div />').attr('class', 'price_place');
+                        var $nameItem = $('<H3 />');
+                        var $price = $('<H4 />');
+                        var $img = $('<img >');
+                        var $imgShop = $('<img >').attr('src', 'img/Forma_cart_white.svg');
+                        var $addToCart = $('<div >').attr('class', 'add_to_cart');
+                        $addToCart.attr("data-id", item.id);
+                        $addToCart.attr("data-name", item.name);
+                        $addToCart.attr("data-price", item.price);
+                        $addToCart.attr("data-imgurl", item.imgurl);
+                        $div.attr('id', item.id);
+                        $img.attr('src', item.imgurl);
+                        $nameItem.text(item.name);
+                        $price.text('$ ' + item.price);
+
+                        // Добавляем все в dom
+
+                        $divItemPreview.append($div);
+
+
+                        $div.append($a);
+                        $a.append($divImageItem);
+                        $a.append($divPricePlace);
+                        $divImageItem.append($img);
+                        $divPricePlace.append($nameItem);
+                        $divPricePlace.append($price);
+                        $div.append($divPosition);
+                        $divPosition.append($addToCart);
+                        $addToCart.append($aShop);
+                        $aShop.text('Add to Cart');
+                        $aShop.prepend($imgShop);
+                    });
+                    // Добавляем все в dom
+                    $('#goods').append($divItemPreview);
+
+                }
+            });
+            $('.number_nav>a').css({color: '#c4c4c4'});
+            $('#3').css({color: '#ef5b70'});
+
+        });
+        $('#4').on('click', function (event) {
+            event.preventDefault();
+            $('#goods').empty();
+            $.ajax({
+                url: 'http://localhost:3000/items?_page=4&_limit=6',
+                dataType: 'json',
+                success: function (cart) {
+                    var $divItemPreview = $('<div />').attr('class', 'items_preview');
+
+
+                    // Перебираем список товаров
+                    cart.forEach(function (item) {
+                        var $div = $('<div />').attr('class', 'item');
+                        var $divPosition = $('<div />').attr('class', 'position_add_to_cart');
+                        var $a = $('<a />').attr("href", "single_page.html");
+                        var $aShop = $('<a />').attr("href", "#");
+                        var $divImageItem = $('<div />').attr('class', 'img_items');
+                        var $divPricePlace = $('<div />').attr('class', 'price_place');
+                        var $nameItem = $('<H3 />');
+                        var $price = $('<H4 />');
+                        var $img = $('<img >');
+                        var $imgShop = $('<img >').attr('src', 'img/Forma_cart_white.svg');
+                        var $addToCart = $('<div >').attr('class', 'add_to_cart');
+                        $addToCart.attr("data-id", item.id);
+                        $addToCart.attr("data-name", item.name);
+                        $addToCart.attr("data-price", item.price);
+                        $addToCart.attr("data-imgurl", item.imgurl);
+                        $div.attr('id', item.id);
+                        $img.attr('src', item.imgurl);
+                        $nameItem.text(item.name);
+                        $price.text('$ ' + item.price);
+
+                        // Добавляем все в dom
+
+                        $divItemPreview.append($div);
+
+
+                        $div.append($a);
+                        $a.append($divImageItem);
+                        $a.append($divPricePlace);
+                        $divImageItem.append($img);
+                        $divPricePlace.append($nameItem);
+                        $divPricePlace.append($price);
+                        $div.append($divPosition);
+                        $divPosition.append($addToCart);
+                        $addToCart.append($aShop);
+                        $aShop.text('Add to Cart');
+                        $aShop.prepend($imgShop);
+                    });
+                    // Добавляем все в dom
+                    $('#goods').append($divItemPreview);
+
+                }
+            });
+            $('.number_nav>a').css({color: '#c4c4c4'});
+            $('#4').css({color: '#ef5b70'});
+        });
+        $('#5').on('click', function (event) {
+            event.preventDefault();
+            $('#goods').empty();
+            $.ajax({
+                url: 'http://localhost:3000/items?_page=5&_limit=6',
+                dataType: 'json',
+                success: function (cart) {
+                    var $divItemPreview = $('<div />').attr('class', 'items_preview');
+
+
+                    // Перебираем список товаров
+                    cart.forEach(function (item) {
+                        var $div = $('<div />').attr('class', 'item');
+                        var $divPosition = $('<div />').attr('class', 'position_add_to_cart');
+                        var $a = $('<a />').attr("href", "single_page.html");
+                        var $aShop = $('<a />').attr("href", "#");
+                        var $divImageItem = $('<div />').attr('class', 'img_items');
+                        var $divPricePlace = $('<div />').attr('class', 'price_place');
+                        var $nameItem = $('<H3 />');
+                        var $price = $('<H4 />');
+                        var $img = $('<img >');
+                        var $imgShop = $('<img >').attr('src', 'img/Forma_cart_white.svg');
+                        var $addToCart = $('<div >').attr('class', 'add_to_cart');
+                        $addToCart.attr("data-id", item.id);
+                        $addToCart.attr("data-name", item.name);
+                        $addToCart.attr("data-price", item.price);
+                        $addToCart.attr("data-imgurl", item.imgurl);
+                        $div.attr('id', item.id);
+                        $img.attr('src', item.imgurl);
+                        $nameItem.text(item.name);
+                        $price.text('$ ' + item.price);
+
+                        // Добавляем все в dom
+
+                        $divItemPreview.append($div);
+
+
+                        $div.append($a);
+                        $a.append($divImageItem);
+                        $a.append($divPricePlace);
+                        $divImageItem.append($img);
+                        $divPricePlace.append($nameItem);
+                        $divPricePlace.append($price);
+                        $div.append($divPosition);
+                        $divPosition.append($addToCart);
+                        $addToCart.append($aShop);
+                        $aShop.text('Add to Cart');
+                        $aShop.prepend($imgShop);
+                    });
+                    // Добавляем все в dom
+                    $('#goods').append($divItemPreview);
+
+                }
+            });
+            $('.number_nav>a').css({color: '#c4c4c4'});
+            $('#5').css({color: '#ef5b70'});
+        });
+        $('#6').on('click', function (event) {
+            event.preventDefault();
+            $('#goods').empty();
+            $.ajax({
+                url: 'http://localhost:3000/items?_page=6&_limit=6',
+                dataType: 'json',
+                success: function (cart) {
+                    var $divItemPreview = $('<div />').attr('class', 'items_preview');
+
+
+                    // Перебираем список товаров
+                    cart.forEach(function (item) {
+                        var $div = $('<div />').attr('class', 'item');
+                        var $divPosition = $('<div />').attr('class', 'position_add_to_cart');
+                        var $a = $('<a />').attr("href", "single_page.html");
+                        var $aShop = $('<a />').attr("href", "#");
+                        var $divImageItem = $('<div />').attr('class', 'img_items');
+                        var $divPricePlace = $('<div />').attr('class', 'price_place');
+                        var $nameItem = $('<H3 />');
+                        var $price = $('<H4 />');
+                        var $img = $('<img >');
+                        var $imgShop = $('<img >').attr('src', 'img/Forma_cart_white.svg');
+                        var $addToCart = $('<div >').attr('class', 'add_to_cart');
+                        $addToCart.attr("data-id", item.id);
+                        $addToCart.attr("data-name", item.name);
+                        $addToCart.attr("data-price", item.price);
+                        $addToCart.attr("data-imgurl", item.imgurl);
+                        $div.attr('id', item.id);
+                        $img.attr('src', item.imgurl);
+                        $nameItem.text(item.name);
+                        $price.text('$ ' + item.price);
+
+                        // Добавляем все в dom
+
+                        $divItemPreview.append($div);
+
+
+                        $div.append($a);
+                        $a.append($divImageItem);
+                        $a.append($divPricePlace);
+                        $divImageItem.append($img);
+                        $divPricePlace.append($nameItem);
+                        $divPricePlace.append($price);
+                        $div.append($divPosition);
+                        $divPosition.append($addToCart);
+                        $addToCart.append($aShop);
+                        $aShop.text('Add to Cart');
+                        $aShop.prepend($imgShop);
+                    });
+                    // Добавляем все в dom
+                    $('#goods').append($divItemPreview);
+
+                }
+            });
+            $('.number_nav>a').css({color: '#c4c4c4'});
+            $('#6').css({color: '#ef5b70'});
+        });
+        $('#view_all').on('click', function (event) {
+            event.preventDefault();
+            $('#goods').empty();
+            $.ajax({
+                url: 'http://localhost:3000/items',
+                dataType: 'json',
+                success: function (cart) {
+                    var $divItemPreview = $('<div />').attr('class', 'items_preview');
+
+
+                    // Перебираем список товаров
+                    cart.forEach(function (item) {
+                        var $div = $('<div />').attr('class', 'item');
+                        var $divPosition = $('<div />').attr('class', 'position_add_to_cart');
+                        var $a = $('<a />').attr("href", "single_page.html");
+                        var $aShop = $('<a />').attr("href", "#");
+                        var $divImageItem = $('<div />').attr('class', 'img_items');
+                        var $divPricePlace = $('<div />').attr('class', 'price_place');
+                        var $nameItem = $('<H3 />');
+                        var $price = $('<H4 />');
+                        var $img = $('<img >');
+                        var $imgShop = $('<img >').attr('src', 'img/Forma_cart_white.svg');
+                        var $addToCart = $('<div >').attr('class', 'add_to_cart');
+                        $addToCart.attr("data-id", item.id);
+                        $addToCart.attr("data-name", item.name);
+                        $addToCart.attr("data-price", item.price);
+                        $addToCart.attr("data-imgurl", item.imgurl);
+                        $div.attr('id', item.id);
+                        $img.attr('src', item.imgurl);
+                        $nameItem.text(item.name);
+                        $price.text('$ ' + item.price);
+
+                        // Добавляем все в dom
+
+                        $divItemPreview.append($div);
+
+
+                        $div.append($a);
+                        $a.append($divImageItem);
+                        $a.append($divPricePlace);
+                        $divImageItem.append($img);
+                        $divPricePlace.append($nameItem);
+                        $divPricePlace.append($price);
+                        $div.append($divPosition);
+                        $divPosition.append($addToCart);
+                        $addToCart.append($aShop);
+                        $aShop.text('Add to Cart');
+                        $aShop.prepend($imgShop);
+                    });
+                    // Добавляем все в dom
+                    $('#goods').append($divItemPreview);
+
+                }
+            });
+        });
         $('#cart').on('click', '.delete', function (event) {
             event.preventDefault();
             // Получаем id товара, который пользователь хочет удалить
@@ -242,6 +702,54 @@ function buildGoodsList() {
         });
         // Слушаем нажатия на кнопку Купить
         $('#goods').on('click', '.add_to_cart', function (event) {
+            event.preventDefault();
+            // Определяем id товара, который пользователь хочет удалить
+            var id = $(this).attr('data-id');
+            // Пробуем найти такой товар в карзине
+            var entity = $('#cart [data-id="' + id + '"]');
+            var price = +$(this).attr('data-price');
+            var quant = +$(entity).attr('data-quantity') + 1;
+            if (entity.length) {
+                // Товар в корзине есть, отправляем запрос на увеличение количества
+                $.ajax({
+                    url: 'http://localhost:3000/cart/' + id,
+                    type: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    data: JSON.stringify({
+                        quantity: +$(entity).attr('data-quantity') + 1,
+                        subtotal: +quant * price
+                    }),
+                    success: function () {
+                        // Перестраиваем корзину
+                        buildCart();
+                    }
+                })
+            } else {
+                // Товара в корзине нет - создаем в количестве 1
+                $.ajax({
+                    url: 'http://localhost:3000/cart',
+                    type: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    data: JSON.stringify({
+                        id: id,
+                        quantity: 1,
+                        name: $(this).attr('data-name'),
+                        price: $(this).attr('data-price'),
+                        imgurl: $(this).attr('data-imgurl'),
+                        subtotal: $(this).attr('data-price'),
+                    }),
+                    success: function () {
+                        // Перерисовываем корзину
+                        buildCart();
+                    }
+                })
+            }
+        });
+        $('#goods_main').on('click', '.add_to_cart', function (event) {
             event.preventDefault();
             // Определяем id товара, который пользователь хочет удалить
             var id = $(this).attr('data-id');
@@ -338,7 +846,7 @@ function buildGoodsList() {
             }
         });
         // Слушаем нажатия на кнопку изменения количества
-        $('#itemInCart').on('change','.quantity_in_cart', function (event) {
+        $('#itemInCart').on('change', '.quantity_in_cart', function (event) {
             event.preventDefault();
             // Определяем id товара, который пользователь хочет удалить
             var id = $(this).attr('data-id');
@@ -379,14 +887,14 @@ function buildGoodsList() {
                 dataType: 'json',
                 success: function (cart) {
                     cart.forEach(function (item) {
-                        if (item.id){
+                        if (item.id) {
                             $.ajax({
-                                url: 'http://localhost:3000/cart/'+item.id,
+                                url: 'http://localhost:3000/cart/' + item.id,
                                 type: 'DELETE',
                                 success: function () {
                                     // Перерисовываем корзины
                                     console.log(item.id);
-                                   buildCart();
+                                    buildCart();
                                 }
                             })
                         }
@@ -400,3 +908,4 @@ function buildGoodsList() {
 
     });
 })(jQuery);
+//    color: #ef5b70
